@@ -23,3 +23,6 @@ Required files:
        --data files
 ```
 Data files available from  the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/opinrank+review+dataset).
+
+Software:
+Python 2.7, relying on Pandas, Bokeh 0.12.13
