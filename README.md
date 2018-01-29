@@ -5,6 +5,7 @@ A collection of small data analysis-oriented projects by Paige McKenzie.
 Table of Contents
 ======
 [Edmunds reviews analysis](##-Edmunds-reviews-analysis)
+
 [Jane Austen text analysis](##-Jane-Austen-text-analysis)
 
 ## Edmunds reviews analysis
