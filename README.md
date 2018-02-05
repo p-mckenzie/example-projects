@@ -10,7 +10,8 @@ Table of Contents
 
 <a name="Edmunds"/>
 
-##Edmunds reviews analysis
+## Edmunds reviews analysis
+
 A text-analytics microproject using a dataset from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/opinrank+review+dataset).
 
 See my [blog post](https://p-mckenzie.github.io/content/python/2017/11/16/edmunds-reviews/) concerning this project.
@@ -34,6 +35,7 @@ Python 2.7, relying on Pandas, Bokeh 0.12.13
 <a name="Jane"/>
 
 ## Jane Austen text analysis
+
 A text-analytics microproject using a three novels written by Jane Austen: Emma, Pride and Prejudice, and Sense and Sensibility.
 
 See my [blog post](https://p-mckenzie.github.io/content/python/2018/01/11/Jane-Austen/) concerning this project.
