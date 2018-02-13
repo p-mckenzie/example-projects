@@ -24,7 +24,7 @@ Required files:
        --data files
     --2008
        --data files
-	--2009
+    --2009
        --data files
 ```
 Data files available from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/opinrank+review+dataset).
