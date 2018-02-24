@@ -4,9 +4,32 @@ A collection of small data analysis-oriented projects by Paige McKenzie.
 
 Table of Contents
 ======
+[Allrecipes.com Hall of Fame analysis](#allrecipes-hof)
+
 [Edmunds reviews analysis](#Edmunds)
 
 [Jane Austen text analysis](#Jane)
+
+<a name="allrecipes-hof"/>
+
+## Allrecipes.com Hall of Fame
+
+A project leveraging both R and Python to acquire data from [Allrecipes.com](allrecipes.com)'s
+yearly Hall of Fame collections.
+
+See my [blog post](https://p-mckenzie.github.io/r/2018/02/23/allrecipes-hall-of-fame/) concerning this project.
+
+Required files:
+```
++-- Allrecipes Hall of Fame
+    --allrecipes_scraper.py
+    --allrecipes_analysis.Rmd
+```
+
+Software:
+The data scraping was with Python 3.5.1, Selenium 3.6.0, using Chromedriver 2.35 for Windows. Make sure to update the file to include the path to your chromedriver.
+
+Analysis was completed in RStudio using R 3.4.1, requiring on dplyr, ggplot2, corrplot, ggthemes, wordcloud, and tm.
 
 <a name="Edmunds"/>
 

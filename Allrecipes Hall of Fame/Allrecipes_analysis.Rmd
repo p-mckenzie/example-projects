@@ -1,0 +1,224 @@
+---
+title: "Allrecipes Hall of Fame analysis"
+author: "Paige McKenzie"
+date: "February 22, 2018"
+output: html_document
+---
+
+This is a analysis of scraped data from [Allrecipes.com](allrecipes.com). See the accompanying blog post [here](https://p-mckenzie.github.io/r/2018/02/23/allrecipes-hall-of-fame/).
+
+
+```{r}
+suppressMessages(library(dplyr))
+```
+
+# Import data
+The first step is to read in the data (removing the first column, an index).
+```{r}
+df = read.csv('allrecipes.csv', stringsAsFactors=FALSE)[,-1]
+
+head(df, n=3L)
+```
+
+# Sanity Checks
+To make sure the data was scraped properly, I'll perform a few checks first.
+
+## 1) Checking for scale
+```{r}
+cat("Number of years in sample:", length(unique(df$year)), '\n')
+cat("Number of unique recipes in sample:", length(unique(df$title)), '\n')
+cat("Number of recipes featured in multiple years:", 
+    length(unique((df %>% group_by(title) %>% filter(n()>1))$title)))
+```
+
+All of these seem logical with the amount of data I thought I scraped.
+
+## 2) Imputation
+Next, let's check for NA values, where the scraper wasn't able to bring the data in.
+```{r}
+for (col in colnames(df)) {
+  cat("Number of missing values in", col, ":", sum(is.na(df[[col]])), '\n')
+}
+```
+
+Seems to be a pretty complete dataset. Let's further investigate the 2 missing rows for the nutrition information breakdown, which are possibly the same 2 recipes for each missing column (calories, fat, carbohydrate, protein).
+```{r}
+df[is.na(df$calories),c(1,2,11,12,13,14)]
+```
+
+Sure enough, the missing values hail from the same two recipes. As this is a mainly descriptive analysis, I'll simply fill these two recipe's missing values with the median, to avoid skewing any visuals.
+
+```{r}
+for (col in colnames(df)[seq(11,14)]) {
+  df[[col]][is.na(df[[col]])] = median(df[[col]], na.rm=TRUE)
+  cat("New number of missing values in", col, ":", sum(is.na(df[[col]])), '\n')
+}
+```
+
+## 3) Data Munging
+Let's check each column's formatting, and perform any necessary transformations to get numerical data wherever possible. First, the 'readyin' column, since the format is mixed minutes/hours.
+```{r}
+cat(paste(unique(df$readyin)[1:20], collapse=';\n'))
+```
+
+For uniformity, I'll combine all these times into one unit, 'minutes'.
+```{r}
+clean_minutes = function(text) {
+  time = 0
+  if (grepl(' d', text, fixed=TRUE)) {
+    time = time + as.numeric(substr(text, 1, regexpr(" d", text)[1]-1))*24*60
+    text = substr(text, regexpr(" d", text)[1]+2, nchar(text))
+  }
+  if (grepl(' h', text, fixed=TRUE)) {
+    time = time + as.numeric(substr(text, 1, regexpr(" h", text)[1]-1))*60
+    text = substr(text, regexpr(" h", text)[1]+2, nchar(text))
+  }
+  if (grepl(' m', text, fixed=TRUE)) {
+    time = time + as.numeric(substr(text, 1, regexpr(" m", text)[1]-1))
+    text = substr(text, regexpr(" m", text)[1]+2, nchar(text))
+  }
+  return(time)
+}
+
+df$readyin = sapply(df$readyin, clean_minutes)
+summary(df$readyin)
+```
+
+Also note that the 2017 Hall of Fame was listed as the '20th Birthday Hall of Fame', so let's take care of that while we convert the 'year' column to integers.
+```{r}
+df$year[df$year=="20th-birthday-hall-of-fame"] = 2017
+df$year = suppressWarnings(as.numeric(df$year))
+unique(df$year)
+```
+
+Sure enough, we know have recipes for each year from 1997 through 2017.
+
+Let's also clean up the social metrics (number of people who 'made it' and number of photos related to the recipe), since the site formats the numbers imprecisely.
+```{r}
+clean_numbers_social = function(text) {
+  if (grepl('K', text, fixed=TRUE)) {
+    return(as.numeric(substr(text, 1, nchar(text)-1))*1000)
+  }
+  else {
+    return(as.numeric(text))
+  }
+}
+df$madeit = sapply(df$madeit, clean_numbers_social)
+summary(df$madeit)
+df$photos = sapply(df$photos, clean_numbers_social)
+summary(df$photos)
+```
+
+
+# Exploratory Analysis
+
+```{r}
+library(corrplot)
+cor_matrix = cor(df[,c(4,5,6,9,10,11,12,13,14)])
+
+corrplot(cor_matrix, type = "upper", order = "hclust", 
+         tl.col = "black", tl.srt = 45, 
+         col=colorRampPalette(c("#07337a", "#7483f9", "#55c184", "#eef975"))(100))
+```
+
+We can see there are significant positive correlations between the social metrics, such as number of photos, number of reviews, and the number of people who indicated they 'made it' for each recipe. 
+
+We can also see negative correlation between the number of servings and the protein, calories, fat, and carohydrate counts. This is rather interesting, as the nutrition measures are per-serving, perhaps because the 'serving size' is subjective information, provided by the recipe author, and so not standardized across the website. With this story, it is clear that some authors prefer smaller serving sizes (low calorie/fat/etc founts), but bake the same quantity of food in a larger number of portions (high serving size), while other authors take the reverse approach, preparing the same quantity of food divided into fewer portions, with higher calorie/fat/etc counts per-serving.
+
+```{r}
+library(ggplot2)
+library(ggthemes)
+ts = df %>% select(servings, calories, fat, protein, carbohydrate, year) %>% group_by(year) %>%  summarise_all(funs(mean))
+
+ggplot(ts, aes(year, calories)) + 
+  geom_line(aes(y=calories), col="#07337a") +
+  coord_cartesian(ylim = c(0, 425)) +
+  theme_bw() +
+  ggtitle('Average Calories per Serving, by Year') +
+  theme(
+    plot.title = element_text(hjust = 0.5)
+  )
+```
+
+There is perhaps a slight increasing trend in the number of calories per serving, though the majority of this increase happens in the first few years (1997-1999) and the rest of the deviations seem to be somewhat random.
+
+```{r}
+ggplot(ts, aes(year, servings)) + 
+  geom_line(aes(y=servings), col="#07337a") +
+  coord_cartesian(ylim = c(0, 50)) +
+  theme_bw() +
+  ggtitle('Average Number of Servings per Recipe, by Year') +
+  theme(
+    plot.title = element_text(hjust = 0.5)
+  )
+```
+
+We can see an obvious downward trend in the number of servings per recipe, perhaps due to an increased interest in cooking for smaller families or 2-person households.
+
+```{r}
+ggplot(data = ts, aes(x = year)) +
+  geom_line(aes(y = fat, colour = "Fat")) +
+  geom_line(aes(y = protein, colour = "Protein")) +
+  geom_line(aes(y = carbohydrate, colour = "Carbohydrate")) +
+  scale_colour_manual("", 
+                      breaks = c("Carbohydrate", "Fat", "Protein"),
+                      values = c("Fat"="#07337a", "Protein"="#7483f9", 
+                                 "Carbohydrate"="#55c184")) +
+    theme_bw() +
+  labs(title="Nutrition Break-Down, by Year", x="Year", y="Grams")+
+  coord_cartesian(ylim = c(0, 50)) +
+  theme(
+    plot.title = element_text(hjust = 0.5)
+  )
+```
+
+Here, we can clearly see that recipes have gotten healthier over time (as measured by the higher protein and fat content, and lower carbohydrate content). This is probably due to the increased interest in health over the past few years, with dietary movements like organic, gluten-free, and raw gaining support, and the change in dietary recommendations (healthy fat is now highly recommended, where before all fat was treated the same, to be avoided).
+
+# Text Examination
+First, let's see if there's any pattern in the titles, like 'easy' or 'best' showing up frequently.
+
+For cleanliness, since some of the titles contain roman numerals, like 'Alfedo Sauce IV', I'll clean those from the ends of the strings, then lowercase all the titles, and move the test into a corpus.
+```{r}
+library(wordcloud)
+library(tm)
+
+titles = tm_map(Corpus(VectorSource(gsub(" [IXV]+$", "", df$title, perl=TRUE))), content_transformer(tolower))
+cat(titles[seq(1:10)]$content, sep="\n")
+```
+
+Next, let's count some words to see what our most dramatic components are, and build a wordcloud. I'll also remove stopwords, to prevent words like 'and' appearing frequently.
+```{r}
+titles = tm_map(titles, removeWords, stopwords("english"))
+doc_term_mat = as.matrix(TermDocumentMatrix(titles))
+doc_term_mat = sort(rowSums(doc_term_mat), decreasing=TRUE)
+d = data.frame(word = names(doc_term_mat), freq=doc_term_mat)
+
+set.seed(5)
+wordcloud(words = d$word, freq = d$freq, min.freq = 6,
+          random.order = FALSE, random.color = FALSE,
+          rot.per=0.3, colors=brewer.pal(11, "Spectral"))
+```
+
+Here, we can clearly see that cookie recipes are more dominant than any other type, followed by chicken, then bread and chocolate.
+
+Let's perform a similar analysis on the submitter descriptions.
+```{r}
+sub_des = tm_map(Corpus(VectorSource(gsub(" [IXV]+$", "", df$submitter_description, perl=TRUE))), content_transformer(tolower))
+cat(sub_des[seq(1:10)]$content, sep="\n")
+
+sub_des = tm_map(sub_des, removeWords, stopwords("english"))
+doc_term_mat = as.matrix(TermDocumentMatrix(sub_des))
+doc_term_mat = sort(rowSums(doc_term_mat), decreasing=TRUE)
+d = data.frame(word = names(doc_term_mat), freq=doc_term_mat)
+
+set.seed(5)
+wordcloud(words = d$word, freq = d$freq, min.freq = 15,
+          random.order = FALSE, random.color = FALSE,
+          rot.per=0.3, colors=colorRampPalette(c("#07337a", "#55c184", "#eef975"))(7))
+```
+
+Apparently, the most generic submitter description would be "this is a great recipe, very easy to make, and delicious". Also there's a very clear split here between the highly frequent words (recipe, make, great), and the remaining words.
+
+
+
+
