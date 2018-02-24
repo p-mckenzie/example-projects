@@ -9,7 +9,7 @@ def main():
 					 'ingredients', 'readyin', 'servings', 'calories', 'fat', 'carbohydrate', 'protein'])
 
 	#start Selenium webdriver
-	loc = 'C:\Python27\chromedriver.exe'
+	loc = ''
 	if loc=='':
 		print('Error, please enter webdriver address. Stopping.')
 		return
