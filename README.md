@@ -14,7 +14,7 @@ Table of Contents
 
 ## Allrecipes.com Hall of Fame
 
-A project leveraging both R and Python to acquire data from [Allrecipes.com](allrecipes.com)'s
+A project leveraging both R and Python to acquire data from [Allrecipes.com](http://www.allrecipes.com)'s
 yearly Hall of Fame collections.
 
 See my [blog post](https://p-mckenzie.github.io/r/2018/02/23/allrecipes-hall-of-fame/) concerning this project.
