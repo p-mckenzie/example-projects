@@ -6,6 +6,8 @@ Table of Contents
 ======
 [Allrecipes.com Hall of Fame analysis](#allrecipes-hof)
 
+[Bachelor Finale twitter analysis](#bachelor-finale)
+
 [Edmunds reviews analysis](#Edmunds)
 
 [Jane Austen text analysis](#Jane)
@@ -30,6 +32,26 @@ Software:
 The data scraping was with Python 3.5.1, Selenium 3.6.0, using Chromedriver 2.35 for Windows. Make sure to update the file to include the path to your chromedriver.
 
 Analysis was completed in RStudio using R 3.4.1, requiring on dplyr, ggplot2, corrplot, ggthemes, wordcloud, and tm.
+
+<a name="bachelor-finale"/>
+
+## Bachelor Finale twitter analysis
+
+A project leveraging Python and the twitter API to acquire tweets about the bachelor season 22 finale and After the Final Rose.
+
+See my [blog post](https://p-mckenzie.github.io/python/2018/03/12/Bachelor-finale/) concerning this project.
+
+Required files:
+```
++-- twitter - Bachelor finale
+    --Scraper.ipynb
+    --Analysis.ipynb
+```
+
+Software:
+All analysis was completed using Python 2.7, relying primarily on the pandas, re, and nltk libraries. 
+The data was extracted from twitter using python-twitter, a python-based wrapper for the twitter API.
+Visualizations made with matplotlib.
 
 <a name="Edmunds"/>
 

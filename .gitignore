@@ -2,3 +2,6 @@
 *.txt
 *.csv
 *.db
+*.pyc
+twitter_tokens.py
+debug.log
