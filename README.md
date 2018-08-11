@@ -1,9 +1,11 @@
 # Example Projects
 
-A collection of small data analysis-oriented projects by Paige McKenzie. 
+A collection of data analysis-oriented projects by Paige McKenzie. 
 
 Table of Contents
 ======
+[Allrecipes.com text analysis](#allrecipes-text)
+
 [Allrecipes.com Hall of Fame analysis](#allrecipes-hof)
 
 [Bachelor Finale twitter analysis](#bachelor-finale)
@@ -11,6 +13,25 @@ Table of Contents
 [Edmunds reviews analysis](#Edmunds)
 
 [Jane Austen text analysis](#Jane)
+
+<a name="allrecipes-text"/>
+
+## Allrecipes.com text analysis
+### This section is under development
+
+A multi-part project involving getting data from [Allrecipes.com](http://www.allrecipes.com)'s
+various categories.
+
+See my 1st [blog post](https://p-mckenzie.github.io/python/2018/08/06/Allrecipes-categories-scraper/) of the project (covering the scraping).
+
+Required files:
+```
++-- Allrecipes text analysis
+    --scraper.py
+```
+
+Software:
+The data scraping was with Python 3.6.5, Selenium 3.14.0, using Chromedriver 2.41 for Windows. Make sure to update the file to include the path to your chromedriver.
 
 <a name="allrecipes-hof"/>
 
