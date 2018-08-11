@@ -8,7 +8,7 @@ import re
 import os
 
 ## ------------ Global variables ----------------------- ##
-loc = 'C:\ProgramData\Anaconda3\extras\chromedriver.exe' #location of Chrome webdriver
+loc = '' #location of Chrome webdriver
 major_cats = {'Dish Type', 'World Cuisine', 'Cooking Style'} # names of Allrecipes.com major categories (section headers) to scrape
 num_per_category = 100 #the number of recipes to retrieve from each subcategory
 cleanup = True #whether to delete intermediate files or not once process finishes
@@ -28,9 +28,8 @@ def initialize_driver():
 	return webdriver.Chrome(loc, chrome_options=options)
 	
 def main():
-	try: # double-check that process needs to run at all
-		assert not os.path.isfile("./scraped_data.csv")
-	except AssertionError:
+	# double-check that process needs to run at all
+	if os.path.isfile("./scraped_data.csv"):
 		print("Data has already been scraped. Check scraped_data.csv.")
 		return
 	
@@ -38,16 +37,12 @@ def main():
 	driver = initialize_driver()
 	
 	# check if categories have been scraped and scrape if necessary
-	try:
-		assert os.path.isfile('./categories.csv')
-	except AssertionError:
+	if not os.path.isfile('./categories.csv'):
 		print("\n----- Building category file now. -----\n")
 		build_category_file(driver)
 		
 	# if the file of individual recipe links doesn't exist, create it
-	try:
-		assert os.path.isfile('./data_during_scraping.csv')
-	except AssertionError:
+	if not os.path.isfile('./data_during_scraping.csv'):
 		print("\n------- Finding individual recipe links for each category now. -----\n")
 		get_links(driver, pd.read_csv("categories.csv", index_col=0))
 		
