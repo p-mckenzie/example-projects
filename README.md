@@ -29,8 +29,8 @@ Files:
 ```
 +-- Allrecipes text analysis
     --scraper.py
-	--analysis.ipynb
-	--requirements.txt
+    --analysis.ipynb
+    --requirements.txt
 ```
 
 Software:
