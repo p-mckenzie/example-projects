@@ -17,21 +17,25 @@ Table of Contents
 <a name="allrecipes-text"/>
 
 ## Allrecipes.com text analysis
-### This section is under development
 
 A multi-part project involving getting data from [Allrecipes.com](http://www.allrecipes.com)'s
 various categories.
 
 See my 1st [blog post](https://p-mckenzie.github.io/python/2018/08/06/Allrecipes-categories-scraper/) of the project (covering the scraping).
 
-Required files:
+See my 2nd [blog post](https://p-mckenzie.github.io/python/2018/10/01/ingredient-analysis/) of the project (covering the analysis).
+
+Files:
 ```
 +-- Allrecipes text analysis
     --scraper.py
+	--analysis.ipynb
+	--requirements.txt
 ```
 
 Software:
-The data scraping was with Python 3.6.5, Selenium 3.14.0, using Chromedriver 2.41 for Windows. Make sure to update the file to include the path to your chromedriver.
+The data scraping used Chromedriver 2.41 for Windows. Make sure to update the file to include the path to your chromedriver.
+Package requirements can be found in `requirements.txt`.
 
 <a name="allrecipes-hof"/>
 
