@@ -5,7 +5,7 @@ date: "February 22, 2018"
 output: html_document
 ---
 
-This is a analysis of scraped data from [Allrecipes.com](allrecipes.com). See the accompanying blog post [here](https://p-mckenzie.github.io/r/2018/02/23/allrecipes-hall-of-fame/).
+This is a analysis of scraped data from [Allrecipes.com](allrecipes.com). See the accompanying blog post [here](https://p-mckenzie.github.io/2018/02/23/allrecipes-hall-of-fame/).
 
 
 ```{r}

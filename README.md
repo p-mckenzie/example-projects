@@ -21,9 +21,9 @@ Table of Contents
 A multi-part project involving getting data from [Allrecipes.com](http://www.allrecipes.com)'s
 various categories.
 
-See my 1st [blog post](https://p-mckenzie.github.io/python/2018/08/06/Allrecipes-categories-scraper/) of the project (covering the scraping).
+See my 1st [blog post](https://p-mckenzie.github.io/2018/08/06/Allrecipes-categories-scraper/) of the project (covering the scraping).
 
-See my 2nd [blog post](https://p-mckenzie.github.io/python/2018/10/01/ingredient-analysis/) of the project (covering the analysis).
+See my 2nd [blog post](https://p-mckenzie.github.io/2018/10/01/ingredient-analysis/) of the project (covering the analysis).
 
 Files:
 ```
@@ -44,7 +44,7 @@ Package requirements can be found in `requirements.txt`.
 A project leveraging both R and Python to acquire data from [Allrecipes.com](http://www.allrecipes.com)'s
 yearly Hall of Fame collections.
 
-See my [blog post](https://p-mckenzie.github.io/r/2018/02/23/allrecipes-hall-of-fame/) concerning this project.
+See my [blog post](https://p-mckenzie.github.io/2018/02/23/allrecipes-hall-of-fame/) concerning this project.
 
 Required files:
 ```
@@ -64,7 +64,7 @@ Analysis was completed in RStudio using R 3.4.1, requiring on dplyr, ggplot2, co
 
 A project leveraging Python and the twitter API to acquire tweets about the bachelor season 22 finale and After the Final Rose.
 
-See my [blog post](https://p-mckenzie.github.io/python/2018/03/12/Bachelor-finale/) concerning this project.
+See my [blog post](https://p-mckenzie.github.io/2018/03/12/Bachelor-finale/) concerning this project.
 
 Required files:
 ```
@@ -84,7 +84,7 @@ Visualizations made with matplotlib.
 
 A text-analytics microproject using a dataset from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/opinrank+review+dataset).
 
-See my [blog post](https://p-mckenzie.github.io/content/python/2017/11/16/edmunds-reviews/) concerning this project.
+See my [blog post](https://p-mckenzie.github.io/content/2017/11/16/edmunds-reviews/) concerning this project.
 
 Required files:
 ```
@@ -108,7 +108,7 @@ Python 2.7, relying on Pandas, Bokeh 0.12.13
 
 A text-analytics microproject using a three novels written by Jane Austen: Emma, Pride and Prejudice, and Sense and Sensibility.
 
-See my [blog post](https://p-mckenzie.github.io/content/python/2018/01/11/Jane-Austen/) concerning this project.
+See my [blog post](https://p-mckenzie.github.io/content/2018/01/11/Jane-Austen/) concerning this project.
 
 Required files:
 ```
