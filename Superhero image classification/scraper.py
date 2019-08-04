@@ -21,7 +21,7 @@ def main():
     driver.get('https://www.superherostuff.com/')
 
     for name in superheroes:
-        print("Now working on:", name)
+        print("Now getting links for:", name)
         # search
         driver.find_element_by_name('search').send_keys(name)
 
@@ -59,9 +59,13 @@ def main():
                 # continue to next superhero
                 break
     driver.close()
-
+	
+	print()
+	
     for superhero, link_list in data.items():
-        # create directory if necessary to hold files
+        print("Getting {} images for {}.".format(len(link_list), superhero))
+		
+		# create directory if necessary to hold files
         if not os.path.exists('./{}'.format(superhero)):
             os.mkdir('./{}'.format(superhero))
 
