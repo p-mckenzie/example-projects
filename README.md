@@ -124,6 +124,8 @@ Data files available from [Project Gutenberg](https://www.gutenberg.org/).
 Software:
 Python 2.7, relying on pandas, re, nltk, and Bokeh 0.12.13
 
+<a name="wake-county"/>
+
 ## Wake County Restaurants analysis
 
 Simulating a marketing campaign to target restaurants "at-risk" of failing their next inspection using North Carolina public restaurant inspection data.
