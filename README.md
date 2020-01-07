@@ -14,6 +14,8 @@ Table of Contents
 
 [Jane Austen text analysis](#Jane)
 
+[Wake County Restaurants analysis](#wake-county)
+
 <a name="allrecipes-text"/>
 
 ## Allrecipes.com text analysis
@@ -121,3 +123,21 @@ Data files available from [Project Gutenberg](https://www.gutenberg.org/).
 
 Software:
 Python 2.7, relying on pandas, re, nltk, and Bokeh 0.12.13
+
+## Wake County Restaurants analysis
+
+Simulating a marketing campaign to target restaurants "at-risk" of failing their next inspection using North Carolina public restaurant inspection data.
+
+See my [blog post](https://p-mckenzie.github.io/2019/07/22/Wake-county-restaurants/) concerning this project.
+
+Required files:
+```
++-- Wake_county_restaurants.ipynb
+```
+Data courtesy of Wake County Open Data (pulled 7/3/19):
+* [Restaurants](https://data-wake.opendata.arcgis.com/datasets/restaurants-in-wake-county)
+* [Inspections](https://data-wake.opendata.arcgis.com/datasets/food-inspections)
+* [Violations](https://data-wake.opendata.arcgis.com/datasets/food-inspection-violations)
+
+Software:
+Python 3.7, relying on pandas, sklearn.
