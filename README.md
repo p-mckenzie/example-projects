@@ -14,6 +14,8 @@ Table of Contents
 
 [Jane Austen text analysis](#Jane)
 
+[Anime collaborative filtering analysis](#anime)
+
 <a name="allrecipes-text"/>
 
 ## Allrecipes.com text analysis
@@ -121,3 +123,21 @@ Data files available from [Project Gutenberg](https://www.gutenberg.org/).
 
 Software:
 Python 2.7, relying on pandas, re, nltk, and Bokeh 0.12.13
+
+<a name="anime"/>
+
+## MyAnimeList collaborative filtering project
+
+A demo of how collaborative filtering works, using a list of show reviewd from MyAnimeList, 
+available on [Kaggle](https://www.kaggle.com/azathoth42/myanimelist/version/9). 
+
+See my [blog post](https://p-mckenzie.github.io/2020/02/02/collaborative-filtering/) about the project.
+
+Files:
+```
++-- anime
+    --analysis.ipynb
+```
+
+Software:
+Python 3.6, relying on pandas, scikit-learn, and matplotlib.
